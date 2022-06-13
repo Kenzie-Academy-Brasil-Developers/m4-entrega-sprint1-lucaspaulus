@@ -2,9 +2,7 @@ import users from "../database";
 import {v4 as uuid} from "uuid";
 import * as bcrypt from "bcryptjs"
 
-import usersWithoutPassword from "../utils/usersWithoutPassword.js";
-
-const createUserService = async (name, email, password, isAdm)=>{
+const createUserService = async (name, email, password, isAdm = false)=>{
     const hashPassword = await bcrypt.hash(password, 12)
     const date = new Date().toLocaleString()
 
@@ -19,9 +17,7 @@ const createUserService = async (name, email, password, isAdm)=>{
     }
 
     users.push(newUser)
-
-    const usersWithoutPasswordToReturn = usersWithoutPassword(newUser)
-    return usersWithoutPasswordToReturn
+    return newUser
 }
 
 export default createUserService
