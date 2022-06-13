@@ -4,8 +4,8 @@ const updateUserController = (request, response) =>{
     const {id} = request.params
     const {name, email} = request.body
 
-    const updateUser = updateUserService(id, name, email)
-    return response.status(200).json(updateUser)
+    const updatedUser = updateUserService({response, id, name, email})
+    return response.status(200).json(updatedUser)
     
   
 }

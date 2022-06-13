@@ -2,8 +2,6 @@ import users from "../database";
 import {v4 as uuid} from "uuid";
 import * as bcrypt from "bcryptjs"
 
-import usersWithoutPassword from "../utils/usersWithoutPassword.js";
-
 const createUserService = async (name, email, password, isAdm)=>{
     const hashPassword = await bcrypt.hash(password, 12)
     const date = new Date().toLocaleString()

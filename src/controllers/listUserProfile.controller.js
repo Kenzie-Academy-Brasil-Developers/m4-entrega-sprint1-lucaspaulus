@@ -1,12 +1,11 @@
 import listUserProfileService from "../services/listUserProfile.service";
-import usersWithoutPassword from "../utils/usersWithoutPassword";
+
 const listUserProfileController = (request, response) =>{
-    const {uuid} = request.user
-    const userInfo = listUserProfileService(uuid)
+    let token = request.headers.authorization
+    token = token.split(" ")[1]
 
-    const usersWithoutPasswordToResponse = usersWithoutPassword(userInfo)
-
-    return response.status(200).json(usersWithoutPasswordToResponse)
+    const profile = listUserProfileService(token)
+    return response.json(profile)
 }
 
 export default listUserProfileController

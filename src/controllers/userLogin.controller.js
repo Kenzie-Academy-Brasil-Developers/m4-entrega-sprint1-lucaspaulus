@@ -1,16 +1,10 @@
-import users from "../database";
 import userLoginService from "../services/userLogin.service";
 
 const userLoginController = (request, response)=> {
+    const {email, password} = request.body
+    const userLogin = userLoginService(response, email, password)
 
-    try{
-        const {email, password} = request.body
-        const token = userLoginService(email, password)
-
-        return response.status(200).json({token})
-    }catch(error){
-        return response.status(401).json({message: error.message})
-    }
+    return response.status(200).json(userLogin)
     
 }
 

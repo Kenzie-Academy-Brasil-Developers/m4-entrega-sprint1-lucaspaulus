@@ -1,11 +1,8 @@
 import users from "../database";
-import usersWithoutPassword from "../utils/usersWithoutPassword";
-
-const updateUserService = async (id, name, email) =>{
+const updateUserService = async ({response, id, ...toUpdate}) =>{
     const date = new Date().toLocaleString()
-
+/* 
     const updatedUser = {
-        id,
         name,
         email,
         updatedOn: date
@@ -21,7 +18,25 @@ const updateUserService = async (id, name, email) =>{
 
     const usersWithoutPasswordReturn = usersWithoutPassword(users[userIndex])
     return usersWithoutPasswordReturn
+ */
 
+    for(let prop in toUpdate){
+        if(toUpdate[prop] === undefined){
+            delete toUpdate[prop]
+        }
+    }
+
+    const userIndex = users.findIndex((element)=> element.uuid === id)
+
+    if(userIndex === -1){
+        return response.status(404).json({message: "User not found"})
+    }
+
+    users[userIndex] = {...users[userIndex], ...toUpdate}
+
+    const {password, ...user} = users[userIndex]
+
+    return response.status(200).json(user)
 }
 
 export default updateUserService
