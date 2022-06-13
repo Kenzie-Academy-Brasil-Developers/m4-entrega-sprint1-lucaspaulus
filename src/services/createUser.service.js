@@ -1,5 +1,27 @@
 import users from "../database";
-import {v4 as uuidv4} from "uuid/dist/v4";
-const createUserService = async (email, name, password, isAdm)=>{
+import {v4 as uuid} from "uuid";
+import * as bcrypt from "bcryptjs"
 
+import usersWithoutPassword from "../utils/usersWithoutPassword.js";
+
+const createUserService = async (name, email, password, isAdm)=>{
+    const hashPassword = await bcrypt.hash(password, 12)
+    const date = new Date().toLocaleString()
+
+    const newUser = {
+        name,
+        email,
+        password: hashPassword,
+        isAdm,
+        createdOn: date,
+        updatedOn: date,
+        uuid: uuid()
+    }
+
+    users.push(newUser)
+
+    const usersWithoutPasswordToReturn = usersWithoutPassword(newUser)
+    return usersWithoutPasswordToReturn
 }
+
+export default createUserService
