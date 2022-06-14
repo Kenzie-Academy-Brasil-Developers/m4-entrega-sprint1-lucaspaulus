@@ -15,7 +15,7 @@ const userLoginService = (response, email, password) => {
         return response.status(401).json({message: "Wrong email/password"})
     }
 
-    const token = jwt.sign({uuid: uuid, isAdm: isAdm}, "5a8d2d734a1352f8d113d22eabf2d1cb", {expiresIn: "24h", subject: uuid} )
+    const token = jwt.sign({uuid: user.uuid, isAdm: user.isAdm}, "SECRET_KEY", {expiresIn: "24h"} )
 
     return {token}
 }

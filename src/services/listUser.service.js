@@ -1,6 +1,7 @@
 import users from "../database";
 
 const listUserService = ()=>{
+    
     return users
 }
 
