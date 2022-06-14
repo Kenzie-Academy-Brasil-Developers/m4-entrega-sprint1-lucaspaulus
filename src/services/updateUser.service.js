@@ -16,7 +16,7 @@ const updateUserService = async ({response, id, ...toUpdate}) =>{
 
     users[userIndex] = {...users[userIndex], ...toUpdate}
 
-    const {password, createdOn, ...user} = users[userIndex]
+    const {password,...user} = users[userIndex]
 
     return response.status(200).json(user)
 }
