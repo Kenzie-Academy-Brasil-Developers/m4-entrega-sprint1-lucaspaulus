@@ -1,6 +1,5 @@
 import users from "../database";
 const updateUserService = async ({response, id, ...toUpdate}) =>{
-    const date = new Date().toLocaleString()
 
     for(let prop in toUpdate){
         if(toUpdate[prop] === undefined){
